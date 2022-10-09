@@ -1,0 +1,114 @@
+html {
+    min-width: 320px;
+}
+
+body {
+    margin: 0;
+    background-color: #fff;
+}
+
+#nav-bar {
+    position: relative;
+    min-height: 50px;
+    background-color: #333;
+    overflow: hidden;
+}
+
+#nav-bar a {
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+    color: #ddd;
+}
+
+#nav-bar a:hover,
+#nav-bar a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+
+#nav-title {
+    float: left;
+}
+
+#nav-list {
+    margin: 0;
+    float: right;
+}
+
+#main-image {
+    width: 90%;
+    max-width: 640px;
+    min-width: 320px;
+}
+
+@media (max-width: 819px) {
+    #nav-title {
+        padding: 9px;
+        font-size: 44px;
+        line-height: 32px;
+    }
+
+    #nav-title:after {
+        content: "H";
+    }
+
+    .nav-item {
+        display: inline-block;
+        padding: 9px;
+        height: 32px;
+    }
+
+    #nav-item-github > a:after {
+        content: url("../img/GitHub-Mark-Light-32px.png");
+        padding: 0px 5px 0px 0px;
+    }
+
+    #nav-item-tictactoe > a:after {
+        content: url("../img/tictactoe.PNG");
+        padding: 0px 5px 0px 0px;
+    }
+
+    #page-content {
+        margin: 20px auto;
+        text-align: center;
+    }
+}
+
+@media (min-width: 820px) {
+    #nav-title {
+        padding: 15px 15px;
+        font-size: 30px;
+        line-height: 20px;
+    }
+
+    #nav-title:after {
+        content: "Hodgey.co.uk";
+    }
+
+    .nav-item {
+        display: inline-block;
+        padding: 15px;
+    }
+
+    #nav-item-github > a:after {
+        content: "Github";
+    }
+
+    #nav-item-tictactoe > a:after {
+        content: "Noughts & Crosses";
+    }
+
+    .ext-nav-item::after {
+        content: "";
+        display: inline-block;
+        background: url("../img/ext.png") no-repeat;
+        height: 12px;
+        width: 12px;
+        margin: 0 0 0 3px;
+    }
+
+    #page-content {
+        margin: 60px auto;
+        text-align: center;
+    }
+}
