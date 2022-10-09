@@ -1,0 +1,56 @@
+html {
+}
+body {
+  margin: 0;
+  background-color: #fff;
+}
+
+
+#nav-bar {
+  position: relative;
+  min-height: 50px;
+  background-color: #333;
+  overflow: hidden;
+}
+
+#nav-bar a {
+  font-family: 'Courier New', Courier, monospace;
+  text-decoration: none;
+  color: #ddd;
+}
+
+#nav-bar a:hover,
+#nav-bar a:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+#nav-title {
+  float: left;
+  padding: 15px 15px;
+  font-size: 30px;
+  line-height: 20px;
+}
+
+#nav-list {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+
+.nav-item {
+  display: inline-block;
+  font-size: 15px;
+  float: none;
+  padding: 15px;
+  line-height: 20px;
+}
+
+.ext-nav-item::after {
+  content: "";
+  display: inline-block;
+  background: url("../img/ext.png") no-repeat;
+  height: 16px;
+  width: 12px;
+}

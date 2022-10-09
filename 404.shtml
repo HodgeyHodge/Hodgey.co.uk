@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Hodgey">
+    <link rel=StyleSheet href="//hodgey.co.uk/assets/css/style.css">
+    <title>404: Hodgey.co.uk</title>
+  </head>
+
+  <body>
+    <nav id="nav-bar">
+        <a id="nav-title" href="">404: Hodgey.co.uk</a>
+        <ul id="nav-list">
+            <li class="nav-item ext-nav-item"><a href="https://github.com/HodgeyHodge">Github</a></li>
+            <li class="nav-item ext-nav-item"><a href="http://twitter.com/KJVPassages">Twitter</a></li>
+        </ul>
+    </nav>
+    
+    <div id="page-content" style="margin: 60px auto; text-align: center;">
+      <img width="640px" alt="[a picture courtesy of lorempixel.com]" src="https://loremflickr.com/640/480"/>
+      <p>This page doesn't exist! Have a picture instead.</p>
+    </div>
+  </body>
+</html>
