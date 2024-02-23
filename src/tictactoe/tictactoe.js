@@ -1,8 +1,6 @@
 
-//TODO: at each ply, put a cheat in the console explaining the position and therefore value of the last move.
-//TODO: the sodding line at the end is underneath the board gosh darn it all to hecking HECK
-//TODO: style those buttons
-//TODO: add more banter and randomise its selection per mood
+ const ImagePath = "./img/"
+ const GameDataPath = "./"
 
 const Glyphs = {
     1: "O",
@@ -19,6 +17,94 @@ const Moods = {
     Observing: "observing"
 }
 
+const opponents = {
+    0: {
+        name: "Dani",
+        description: "just plays randomly",
+        pic: "Dani.png",
+        move: function () {
+            const allMoves = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"])
+                .concat(Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]))
+                .concat(Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]));
+            let move = allMoves[Math.floor(Math.random() * Object.keys(allMoves).length)];
+            return interpretMove(move, positionId(Game.grid)[0]);
+        },
+        quotes: {
+            "asking": "Would you like to go first?",
+            "waiting": "Now it's your turn :)",
+            "thinking": "Hmm...",
+            "won": "Well done for trying!",
+            "drew": "It's a draw!",
+            "lost": "You won, well done!",
+            "observing": "Okay, I'm here if you need me."
+        }
+    },
+    1: {
+        name: "Barney",
+        description: "plays competitively",
+        pic: "Barney.png",
+        move: function () {
+            w = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"]);
+            d = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]);
+            l = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]);
+
+            if (w.length > 0) {
+                let move = w[Math.floor(Math.random() * w.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+            else if (d.length > 0) {
+                let move = d[Math.floor(Math.random() * d.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+            else if (l.length > 0) {
+                let move = l[Math.floor(Math.random() * l.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+        },
+        quotes: {
+            "asking": "Meow?",
+            "waiting": "...",
+            "thinking": "purr... purr...",
+            "won": "Meow!",
+            "drew": "Meow.",
+            "lost": "Meow!",
+            "observing": "..."
+        }
+    },
+    2: {
+        name: "Daddy",
+        description: "does his best to let you win",
+        pic: "Me.png",
+        move: function () {
+            w = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"]);
+            d = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]);
+            l = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]);
+
+            if (l.length > 0) {
+                let move = l[Math.floor(Math.random() * l.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+            else if (d.length > 0) {
+                let move = d[Math.floor(Math.random() * d.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+            else if (w.length > 0) {
+                let move = w[Math.floor(Math.random() * w.length)];
+                return interpretMove(move, positionId(Game.grid)[0]);
+            }
+        },
+        quotes: {
+            "asking": "Who should go first?",
+            "waiting": "Now you go...",
+            "thinking": "Hmm...",
+            "won": "Nice try :)",
+            "drew": "It's a draw!",
+            "lost": "You defeated me?!",
+            "observing": "Okay, I'll just watch."
+        }
+    }
+}
+
 let Game = {
     userIs: undefined, //1: human plays O, 2: human plays X, 3: human plays both
     opponent: 0,
@@ -28,93 +114,7 @@ let Game = {
     winLine: 0,
     computerThinking: undefined,
 
-    opponents: {
-        0: {
-            name: "Dani",
-            description: "just plays randomly",
-            pic: "Dani.png",
-            move: function () {
-                const allMoves = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"])
-                    .concat(Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]))
-                    .concat(Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]));
-                let move = allMoves[Math.floor(Math.random() * Object.keys(allMoves).length)];
-                return interpretMove(move, positionId(Game.grid)[0]);
-            },
-            quotes: {
-                "asking": "Would you like to go first?",
-                "waiting": "Now it's your turn :)",
-                "thinking": "Hmm...",
-                "won": "Well done for trying!",
-                "drew": "It's a draw!",
-                "lost": "You won, well done!",
-                "observing": "Okay, I'm here if you need me."
-            }
-        },
-        1: {
-            name: "Barney",
-            description: "plays competitively",
-            pic: "Barney.png",
-            move: function () {
-                w = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"]);
-                d = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]);
-                l = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]);
-
-                if (w.length > 0) {
-                    let move = w[Math.floor(Math.random() * w.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-                else if (d.length > 0) {
-                    let move = d[Math.floor(Math.random() * d.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-                else if (l.length > 0) {
-                    let move = l[Math.floor(Math.random() * l.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-            },
-            quotes: {
-                "asking": "Meow?",
-                "waiting": "...",
-                "thinking": "purr... purr...",
-                "won": "Meow!",
-                "drew": "Meow.",
-                "lost": "Meow!",
-                "observing": "..."
-            }
-        },
-        2: {
-            name: "Daddy",
-            description: "does his best to let you win",
-            pic: "Me.png",
-            move: function () {
-                w = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["w"]);
-                d = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["d"]);
-                l = Object.keys(Game.data[Game.ply()][positionId(Game.grid)[1]]["l"]);
-
-                if (l.length > 0) {
-                    let move = l[Math.floor(Math.random() * l.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-                else if (d.length > 0) {
-                    let move = d[Math.floor(Math.random() * d.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-                else if (w.length > 0) {
-                    let move = w[Math.floor(Math.random() * w.length)];
-                    return interpretMove(move, positionId(Game.grid)[0]);
-                }
-            },
-            quotes: {
-                "asking": "Who should go first?",
-                "waiting": "Now you go...",
-                "thinking": "Hmm...",
-                "won": "Nice try :)",
-                "drew": "It's a draw!",
-                "lost": "You defeated me?!",
-                "observing": "Okay, I'll just watch."
-            }
-        }
-    },
+    opponents: opponents,
     
     reset: function () {
         this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -135,17 +135,17 @@ let Game = {
         document.getElementById(`tictactoe-opponents-statement`).innerText = this.opponents[this.opponent].quotes[this.mood];
 
         if (this.winLine) {
-            document.getElementById(`tictactoe-board`).style.background = `url(../assets/img/tictactoe/W${this.winLine}.png) no-repeat 0 0`;
+            document.getElementById(`tictactoe-board`).style.background = `url(${ImagePath}/W${this.winLine}.png) no-repeat 0 0`;
             document.getElementById(`tictactoe-board`).style.backgroundSize = "100%";
         } else {
             document.getElementById(`tictactoe-board`).style.background = "";
         }
 
-        document.getElementById(`tictactoe-side-panel`).style.background = `url(../assets/img/tictactoe/${this.opponents[this.opponent].pic}) no-repeat 0 0`;
+        document.getElementById(`tictactoe-side-panel`).style.background = `url(${ImagePath}/${this.opponents[this.opponent].pic}) no-repeat 0 0`;
         document.getElementById(`tictactoe-side-panel`).style.backgroundSize = "100%";
         for (let cell = 0; cell < 9; cell++) {
             if (this.grid[cell]) {
-                document.querySelector(`.tictactoe-cell[data-id="${cell}"]`).style.background = `url(../assets/img/tictactoe/${Glyphs[this.grid[cell]]}.png) no-repeat 0 0`;
+                document.querySelector(`.tictactoe-cell[data-id="${cell}"]`).style.background = `url(${ImagePath}/${Glyphs[this.grid[cell]]}.png) no-repeat 0 0`;
                 document.querySelector(`.tictactoe-cell[data-id="${cell}"]`).style.backgroundSize = "100%";
             } else {
                 document.querySelector(`.tictactoe-cell[data-id="${cell}"]`).style.background = "";
@@ -174,7 +174,7 @@ let Game = {
     },
 
     initialiseData: function () {
-        fetch("../assets/js/tictactoedata.json")
+        fetch(`${GameDataPath}/tictactoedata.json`)
             .then((r) => r.json())
             .then((json) => {this.data = json});
     },

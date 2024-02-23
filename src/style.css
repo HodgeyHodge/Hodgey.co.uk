@@ -59,12 +59,17 @@ body {
     }
 
     #nav-item-github > a:after {
-        content: url("../img/GitHub-Mark-Light-32px.png");
+        content: url("./img/GitHub-Mark-Light-32px.png");
         padding: 0px 5px 0px 0px;
     }
 
     #nav-item-tictactoe > a:after {
-        content: url("../img/tictactoe.PNG");
+        content: url("./img/tictactoe.PNG");
+        padding: 0px 5px 0px 0px;
+    }
+
+    #nav-item-concentration > a:after {
+        content: url("./img/concentration.PNG");
         padding: 0px 5px 0px 0px;
     }
 
@@ -98,10 +103,14 @@ body {
         content: "Noughts & Crosses";
     }
 
+    #nav-item-concentration > a:after {
+        content: "Concentration";
+    }
+
     .ext-nav-item::after {
         content: "";
         display: inline-block;
-        background: url("../img/ext.png") no-repeat;
+        background: url("./img/ext.png") no-repeat;
         height: 12px;
         width: 12px;
         margin: 0 0 0 3px;
